@@ -1,0 +1,187 @@
+##Days to go for a particular date in future.
+from datetime import date
+
+x1 = int(input("Enter the lesser year\n"))
+y1 = int(input("Enter the lesser month\n"))
+z1 = int(input("Enter the lesser day\n"))
+
+x2 = int(input("Enter the greater year\n"))
+y2 = int(input("Enter the greater month\n"))
+z2 = int(input("Enter the greater day\n"))
+
+f_date = date(x1, y1, z1)
+l_date = date(x2, y2, z2)
+
+delta = l_date - f_date
+
+print(delta.days)
+
+
+##Hours to go for a particular time.
+from datetime import datetime, timedelta, time
+
+x1 = int(input("Enter the start hour\n"))
+y1 = int(input("Enter the  start min\n"))
+z1 = int(input("Enter the  start second\n"))
+
+x2 = int(input("Enter the end hour\n"))
+y2 = int(input("Enter the end min\n"))
+z2 = int(input("Enter the end second\n"))
+start_time= time(x1,y1,z1)
+end_time= time(x2,y2,z2)
+
+print(datetime.combine(date.today(), end_time) - datetime.combine(date.today(), start_time))
+
+
+##Marks of a student are given in a file, calculate the average marks
+filename = 'studentdata.txt'
+lines = [line.rstrip() for line in open(filename, 'r') ]
+for line in lines:
+    ll = line.split()      
+    #print(ll)
+    name, *scores = ll    
+    print(name, scores)     
+    total = sum(int(x) for x in scores)
+    average = total / len(scores)
+    print(name, ": ", total, average)
+    
+    ##Names are given in a file, check whether a particular name is present
+File_name = 'file.txt'
+Name = 'mayank'
+file = open("file.txt")
+if Name in file.read(): 
+    print('Value is in the file')
+
+## 5. A dict contains events and corresponding dates, given a date, find out what events have occurred and what are still pending.
+import datetime
+date1 = datetime.datetime.strptime('01/01/2022', "%d/%m/%Y").date()
+date2 = datetime.datetime.strptime('14/02/2022', "%d/%m/%Y").date()
+date3 = datetime.datetime.strptime('18/03/2022', "%d/%m/%Y").date()
+date4 = datetime.datetime.strptime('15/04/2022', "%d/%m/%Y").date()
+date5 = datetime.datetime.strptime('03/05/2022', "%d/%m/%Y").date()
+date6 = datetime.datetime.strptime('05/06/2022', "%d/%m/%Y").date()
+date7 = datetime.datetime.strptime('10/07/2022', "%d/%m/%Y").date()
+date8 = datetime.datetime.strptime('11/08/2022', "%d/%m/%Y").date()
+date9 = datetime.datetime.strptime('08/09/2022', "%d/%m/%Y").date()
+date10 = datetime.datetime.strptime('24/10/2022', "%d/%m/%Y").date()
+date11 = datetime.datetime.strptime('14/11/2022', "%d/%m/%Y").date()
+date12 = datetime.datetime.strptime('25/12/2022', "%d/%m/%Y").date()
+
+events = {
+            date1: 'New Year',
+            date2: 'Valentines Day',
+            date3: 'Holi',
+            date4: 'Good Friday',
+            date5: 'Ramdan',
+            date6: 'Environment Day',
+            date7: 'Eid',
+            date8: 'Rakhi',
+            date9: 'Onam',
+            date10: 'Diwali',
+            date11: 'Childrens Day',
+            date12: 'Christmas',
+}
+
+a = input("Please Enter date in dd/mm/yyyy format): ")
+
+date_input = datetime.datetime.strptime(a, "%d/%m/%Y").date()
+
+occured = []
+pending = []
+
+for date, day in events.items():
+    if (date <= date_input):
+        occured.append(day)
+    else:
+        pending.append(day)
+        
+print('Occured Events: ', occured)
+print()
+print('Pending Events: ', pending)
+
+
+## 6. Given a file with numbers , calculate mean, median and mode.
+
+import pandas as pd
+df = pd.read_csv ("File name.csv")
+_mean_ = df['Numbers'].mean()
+_median_ = df['Numbers'].median()
+_mode_ = df['Numbers'].mode()
+
+
+## 7. Given a file with strings, calculate the permutations.
+
+def list_String(List): 
+    return ''.join(List)
+def permute(a, l, r): 
+    if l==r: 
+        print (list_String(a))
+    else: 
+        for i in range(l,r): 
+            a[l], a[i] = a[i], a[l] 
+            permute(a, l+1, r) 
+            a[l], a[i] = a[i], a[l]
+string = "XYZ"
+n = len(string) 
+a = list(string) 
+permute(a, 0, n)
+
+
+## 8. Take user input and write it to a file.
+
+print("What is your first name?")
+input_1 = input()
+print("What is your last name?")
+input_2 = input()
+file_1 = open('text.txt', 'a')
+file_1.write(input_1)
+file_1.write(" ")
+file_1.write(input_2)
+file_1.write("\n")
+file_1.close()
+
+import requests
+URL = "https://www.google.com/search?q=a+text+file+for+student+marks+list&oq=a+text+file+for+student+marks+list&aqs=edge..69i57j0i546l3j69i64l2.14484j0j4&sourceid=chrome&ie=UTF-8"
+response = requests.get(URL)
+open("github.ico", "wb").write(response.content)
+
+## 10. Fetch the data from a url and calculate the number of strings in it.
+
+import requests
+from bs4 import BeautifulSoup
+url = 'https://www.usna.edu/Users/cs/lmcdowel/courses/si204/S10/exams/practiceFinalPracticum.htm'
+res = requests.get(url)
+html_page = res.content
+soup = BeautifulSoup(html_page, 'html.parser')
+text = soup.find_all(text=True)
+output = ''
+for t in text:
+    output += '{} '.format(t)
+print(output)
+
+
+## 11. Calculate the weight of the word banana. ( weight = sum of ascii values of all characters )
+
+test_word = ["banana"]
+ascii_value = []
+for sub in test_word:
+    ascii_sum = 0     
+    for ele in sub:
+        ascii_sum += (ord(ele) - 96)     
+    ascii_value.append(ascii_sum)
+print("Position Summation List : " + str(ascii_value))
+
+## 12. Calculate how many times a string occurs in a given file.
+
+file1 = open("text.txt")
+text = file1.readlines()
+print(len(text))
+
+## 13. Given a file create its zip archive.
+
+from zipfile import ZipFile
+zipObj = ZipFile('sample.zip', 'w')
+zipObj.write('text.txt')
+zipObj.write('Assignment 4 .ipynb')
+zipObj.write('Homework_Day_3.ipynb')
+zipObj.close()
